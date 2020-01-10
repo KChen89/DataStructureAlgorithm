@@ -40,6 +40,10 @@ class LList{
         this.length+=1;
     }
 
+    public void reverse(){
+        
+    }
+
     public boolean delete(int value){
         if(this.head==null){
             return false;
@@ -50,12 +54,20 @@ class LList{
             
             this.head=tmp.next;
             tmp=null;
-            this.length=-1;
+            this.length-=1;
             return true;
         }
         while(tmp.next!=null){
             if(tmp.next.value==value){
-
+                if(tmp.next.next==null){
+                    tmp.next = null;
+                }else{
+                    Node t=tmp.next;
+                    tmp.next=tmp.next.next;
+                    t=null;
+                }
+                this.length-=1;
+                return true;
             }
             tmp = tmp.next;
         }
