@@ -26,6 +26,10 @@ class LList{
         System.out.println();
     }
 
+    public int getLength(){
+        return this.length;
+    }
+
     public void insert(int value){
         if(this.head==null){
             this.head= new Node(value);
@@ -41,7 +45,7 @@ class LList{
     }
 
     public void reverse(){
-        
+
     }
 
     public boolean delete(int value){
@@ -76,6 +80,31 @@ class LList{
 
     public static void main(String[] args){
         LList testList = new LList();
+        for(int i=0;i<10;i++){
+            testList.insert(i);
+        }
+        testList.printList();
+        if(testList.delete(0)){
+            System.out.println("List length "+testList);
+        }else{
+            System.out.println("Element 0 not in list");
+        }
+        testList.printList();
+        if(testList.delete(9)){
+            System.out.println("List length "+testList);
+        }else{
+            System.out.println("Element 1 not in list");
+        }
+        testList.printList();
+        for(int i=0;i<10;i++){
+            if(testList.delete(i)){
+                System.out.println("Delete "+i+" from list");
+            }else{
+                System.out.println("Element "+i+" not in list or list is empty");
+            }
+        }    
+        System.out.println("Length of list is "+testList.getLength());
+        testList.printList();
         for(int i=0;i<10;i++){
             testList.insert(i);
         }
