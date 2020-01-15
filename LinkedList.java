@@ -45,7 +45,17 @@ class LList{
     }
 
     public void reverse(){
-
+        if(this.head==null){
+            return;
+        }
+        Node prev = null;
+        Node next = this.head;
+        while(next!=null){
+            this.head = next;
+            next = this.head.next;
+            this.head.next = prev;
+            prev = this.head;
+        }
     }
 
     public boolean delete(int value){
@@ -108,6 +118,9 @@ class LList{
         for(int i=0;i<10;i++){
             testList.insert(i);
         }
+        testList.printList();
+        System.out.println("Reverse list");
+        testList.reverse();
         testList.printList();
     }
 }
