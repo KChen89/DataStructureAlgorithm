@@ -120,6 +120,35 @@ class BST{
         balanceBuild(values, mid+1, end);
     }
 
+    public void delete(int key){
+        this.root = deleteHelper(this.root, key);
+    }
+
+    private TreeNode deleteHelper(TreeNode node, int key){
+        if(node==null)
+            return node;
+        if(key<node.value){
+            node.left=deleteHelper(node.left, key);
+        }else if(key>node.value){
+            node.right=deleteHelper(node.right, key);
+        }else{
+            if(node.left==null)
+                return node.right;
+            if(node.right==null)
+                return node.left;
+            node.value = minValue(node.right);
+            node.right = deleteHelper(node.right, node.value);
+        }
+        return node;
+    }
+
+    private int minValue(TreeNode node){
+        while(node.left!=null){
+            node = node.left;
+        }
+        return node.value;
+    }
+
     public static void main(String args[]){
         BST testTree = new BST();
         for(int i=0;i<10;i++){
