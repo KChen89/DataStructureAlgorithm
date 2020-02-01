@@ -158,6 +158,10 @@ class BST{
         testTree.printTree();
         testTree.levelOrderTraverse();
         testTree.printTree();
+        System.out.println("Delete node 4");
+        testTree.delete(4);
+        testTree.levelOrderTraverse();
+        testTree.printTree();
     }
 
 }
