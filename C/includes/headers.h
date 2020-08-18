@@ -7,26 +7,6 @@ typedef enum{
     true = 1
 } bool;
 
-/** stack (FILO) **/
-typedef struct stack{
-    unsigned size;
-    unsigned capacity;
-    void* stack;
-} CStack;
-
-CStack* initSK(int capacity);
-
-bool pushSK(CStack* const sk, int value);
-
-int popSK(CStack* const sk, int value);
-
-int sizeSK(CStack* const sk);
-
-int emptySK(CStack* const sk);
-
-int printSK(CStack* const sk);
-
-
 /******** Linked List *********/
 typedef struct node{
     unsigned value;
@@ -58,6 +38,35 @@ void emptyList(LList * list);
 
 void emptyListDP(Node** dp);
 /****** end of linked list ******/
+
+/** stack (FILO) **/
+typedef struct stack{
+    unsigned size;
+    unsigned capacity;
+    int* stack;
+} CStack;
+
+bool initSK(CStack** sk, int capacity);
+
+bool pushSK(CStack* const sk, int value);
+
+bool popSK(CStack* const sk, int* rValue);
+
+int sizeSK(CStack* const sk);
+
+void emptySK(CStack* const sk);
+
+void printSK(CStack* const sk);
+
+typedef struct stackList{
+    unsigned depth;
+    Node* skNode;
+} LStack;
+
+bool pushStack(LStack* const sk, int value);
+bool popStack(LStack* const sk, int* value);
+void emptyStack(LStack* const sk);
+void printStack(LStack* const sk);
 
 
 /********* Binary Tree ********/

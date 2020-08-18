@@ -1,20 +1,67 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include "headers.h"
 #define RANGE 10
 
 bool testLinkedList(void);
 bool testLinkedListDP(void);
+bool testStack(void);
+bool testStackNew(void);
 
 int main(void){
-    if(!testLinkedListDP()){
-        printf("test failed\n");
+    // if(!testLinkedListDP()){
+    //     printf("test failed\n");
+    // }
+    // printf("Test passed\n");
+    if(!testStackNew()){
+        printf("Test return false\n");
+    }else{
+        printf("Test return true\n");
     }
-    printf("Test passed\n");
+    return 0;
+}
+
+bool testStackNew(void){
+    LStack testStack = {.depth = 0, .skNode = NULL};
+    LStack* testStackP = &testStack;
+    for(int i=0;i<RANGE+1;i++){
+        if(!pushStack(testStackP, i)){
+            printf("Push %d failed\n", i);
+            return false;
+        }
+    }
+    printStack(testStackP);
+    return true;
+}
+
+bool testStack(void){
+    CStack** skp = (CStack**) malloc(sizeof(CStack**));
+    if(!initSK(skp, RANGE)){
+        return false;
+    }
+    CStack* testSK = *skp;
+    int tmp;
+    bool result;
+    for(int i=0; i<RANGE+1; i++){
+        result = pushSK(testSK, i);
+        if(result==false){
+            printf("Push failed %d\n", i);
+        }
+    }
+    // printSK(testSK);
+    for(int i=0;i<RANGE+1;i++){
+        if(!popSK(testSK, &tmp)){
+            printf("Pop element failed %d\n", i);
+        }else{
+            printf("Returned element at i=%d is %d\n", i, tmp);
+        }
+    }
+
     return 0;
 }
 
 bool testLinkedListDP(void){
-    Node** LList = NULL;
+    Node** LList = malloc(sizeof(Node**));
     Node* head = NULL;
     LList = &head;
     for (int i=0;i<RANGE;i++){

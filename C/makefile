@@ -1,7 +1,7 @@
-/**
-* @author: Kemeng Chen
-* @email: kemengchen@email.arizona.edu
-*/
+
+## @author: Kemeng Chen
+## @email: kemengchen@email.arizona.edu
+
 
 SHELL        =  /bin/bash
 .SUFFIXES:
@@ -40,7 +40,7 @@ $(OBJ_DIR):
 
 .PHONY: clean
 clean:
-	rm -f $(OBJS) *.o $(BIN) *.out 
+	rm -f $(OBJS) $(BIN) 
 
 print-% :
 	@echo $* = $($*)
