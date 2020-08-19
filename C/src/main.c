@@ -24,12 +24,30 @@ int main(void){
 bool testStackNew(void){
     LStack testStack = {.depth = 0, .skNode = NULL};
     LStack* testStackP = &testStack;
-    for(int i=0;i<RANGE+1;i++){
+    for(int i=0;i<RANGE;i++){
         if(!pushStack(testStackP, i)){
             printf("Push %d failed\n", i);
             return false;
         }
     }
+    printStack(testStackP);
+    int tmp;
+    for(int i=0;i<RANGE+1;i++){
+        if(!popStack(testStackP, &tmp)){
+            printf("Pop failed %d\n", i);
+        }else{
+            printf("i: %d Pop out %d\n", i, tmp);
+        }
+    }
+    printStack(testStackP);
+    for(int i=0;i<RANGE;i++){
+        if(!pushStack(testStackP, i)){
+            printf("Push %d failed\n", i);
+            return false;
+        }
+    }
+    printStack(testStackP);
+    emptyStack(testStackP);
     printStack(testStackP);
     return true;
 }
