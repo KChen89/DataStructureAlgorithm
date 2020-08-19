@@ -39,6 +39,18 @@ void emptyList(LList * list);
 void emptyListDP(Node** dp);
 /****** end of linked list ******/
 
+/*** queue (FIFO) ***/
+typedef struct queue{
+    unsigned size;
+    Node* qNode;
+} LQueue;
+
+bool pushQ(LQueue* const Lq, int value);
+bool popQ(LQueue* const Lq, int* value);
+void emptyQ(LQueue* const Lq);
+void printQ(LQueue* const Lq);
+
+/*** end of queue ***/
 /** stack (FILO) **/
 typedef struct stack{
     unsigned size;
@@ -67,7 +79,7 @@ bool pushStack(LStack* const sk, int value);
 bool popStack(LStack* const sk, int* value);
 void emptyStack(LStack* const sk);
 void printStack(LStack* const sk);
-
+/******** end of stack *******/
 
 /********* Binary Tree ********/
 typedef struct tree_node{

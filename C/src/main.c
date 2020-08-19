@@ -7,18 +7,53 @@ bool testLinkedList(void);
 bool testLinkedListDP(void);
 bool testStack(void);
 bool testStackNew(void);
+bool testQueue(void);
 
 int main(void){
     // if(!testLinkedListDP()){
     //     printf("test failed\n");
     // }
     // printf("Test passed\n");
-    if(!testStackNew()){
+    // if(!testStackNew()){
+    //     printf("Test return false\n");
+    // }else{
+    //     printf("Test return true\n");
+    // }
+    if(!testQueue()){
         printf("Test return false\n");
     }else{
         printf("Test return true\n");
     }
     return 0;
+}
+
+bool testQueue(void){
+    LQueue testQ = {.qNode = NULL, .size=0};
+    LQueue* testQp = &testQ;
+    for(int i=0;i<RANGE;i++){
+        if(!pushQ(testQp, i)){
+            printf("Pushs Queue failed %d\n", i);
+            return false;
+        }
+    }
+    printQ(testQp);
+    // int tmp=-1;;
+    // for(int i=0;i<RANGE+1;i++){
+    //     if(!popQ(testQp, &tmp)){
+    //         printf("Pop Queue failed %d\n", i);
+    //         return false;
+    //     }
+    //     printf("Pop Q at %d -> %d\n", i, tmp);
+    // }
+    // for(int i=0;i<RANGE;i++){
+    //     if(!pushQ(testQp, i)){
+    //         printf("Pushs Queue failed %d\n", i);
+    //         return false;
+    //     }
+    // }
+    emptyQ(testQp);
+    printQ(testQp);
+    return true;
 }
 
 bool testStackNew(void){
