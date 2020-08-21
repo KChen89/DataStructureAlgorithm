@@ -8,6 +8,7 @@ bool testLinkedListDP(void);
 bool testStack(void);
 bool testStackNew(void);
 bool testQueue(void);
+bool testCbuffer(void);
 
 int main(void){
     // if(!testLinkedListDP()){
@@ -19,12 +20,49 @@ int main(void){
     // }else{
     //     printf("Test return true\n");
     // }
-    if(!testQueue()){
+    // if(!testQueue()){
+    //     printf("Test return false\n");
+    // }else{
+    //     printf("Test return true\n");
+    // }
+    // return 0;
+    if(!testCbuffer()){
         printf("Test return false\n");
     }else{
         printf("Test return true\n");
     }
     return 0;
+}
+
+bool testCbuffer(void){
+    cBuf* testCb = cBufInit(RANGE);
+    if(!testCb){
+        return false;
+    }
+
+    for(int i=0;i<RANGE+1;i++){
+        if(!pushCBuf(testCb, i)){
+            printf("push failed %d\n", i);
+        }
+    }
+    printCBuf(testCb);
+    int tmp;
+    for(int i=0;i<RANGE+1;i++){
+        if(!popCBuf(testCb, &tmp)){
+        }
+    }
+    if(!pushCBuf(testCb, 10)){
+        return false;
+    }
+    printCBuf(testCb);
+    // emptyCBuf(testCb);
+    // printCBuf(testCb);
+    freeCBuf(&testCb);
+    if(testCb){
+        printf("After free, buf is not NULL\n");
+        return false;
+    }
+    return true;
 }
 
 bool testQueue(void){

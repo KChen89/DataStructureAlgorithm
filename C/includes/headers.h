@@ -39,6 +39,23 @@ void emptyList(LList * list);
 void emptyListDP(Node** dp);
 /****** end of linked list ******/
 
+/*** circular buffer ***/
+typedef struct Cbuffer{
+    int* buf;
+    int capacity;
+    int head;
+    int tail;
+    int size;
+} cBuf;
+
+cBuf* cBufInit(const int capacity);
+bool pushCBuf(cBuf* const cb, const int value);
+bool popCBuf(cBuf* const cb, int* value);
+void printCBuf(cBuf* const cb);
+void emptyCBuf(cBuf* const cb);
+void freeCBuf(cBuf** cbP);
+/***  end of circular buffer ***/
+
 /*** queue (FIFO) ***/
 typedef struct queue{
     unsigned size;
