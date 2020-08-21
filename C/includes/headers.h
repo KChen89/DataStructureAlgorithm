@@ -100,7 +100,7 @@ void printStack(LStack* const sk);
 
 /********* Binary Tree ********/
 typedef struct tree_node{
-    unsigned value;
+    int value;
     struct tree_node * left;
     struct tree_node * right;
 } TreeNode;
