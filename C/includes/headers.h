@@ -109,10 +109,29 @@ typedef struct BST{
     TreeNode* root;
 } bst;
 
+bst* BSTinit(void);
 bool insertItem(bst* tree, int value);
 bool search(bst* tree, int value);
 bool deleteTreeNode(bst* tree, int value);
 void traverse(bst* tree);
 /******* end of binary tree *******/
+
+/*** 2-D image ***/
+typedef unsigned char PIXEL;
+
+typedef struct{
+    unsigned height;
+    unsigned width;
+    PIXEL** matrix;
+} gImg;
+
+gImg* gImgInit(const unsigned height, const unsigned width);
+bool setValue(gImg* const image, const unsigned y, const unsigned x, PIXEL value);
+bool getValue(gImg* const image, const unsigned y, const unsigned x, PIXEL* value);
+void showImage(gImg* const image);
+bool setZero(gImg* const image);
+bool setMax(gImg* const image);
+void freeGImg(gImg** gIP);
+/*** end of 2-D image ***/
 
 #endif

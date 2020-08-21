@@ -9,6 +9,7 @@ bool testStack(void);
 bool testStackNew(void);
 bool testQueue(void);
 bool testCbuffer(void);
+bool test2Dimage(void);
 
 int main(void){
     // if(!testLinkedListDP()){
@@ -26,12 +27,44 @@ int main(void){
     //     printf("Test return true\n");
     // }
     // return 0;
-    if(!testCbuffer()){
+    // if(!testCbuffer()){
+    //     printf("Test return false\n");
+    // }else{
+    //     printf("Test return true\n");
+    // }
+    if(!test2Dimage()){
         printf("Test return false\n");
     }else{
         printf("Test return true\n");
     }
     return 0;
+}
+
+bool test2Dimage(void){
+    unsigned height = 6;
+    unsigned width = 5;
+    gImg* testImg = gImgInit(height, width);
+
+    if(!testImg){
+        return false;
+    }
+    showImage(testImg);
+    if(!setZero(testImg)){
+        printf("Set zero failed\n");
+        return false;
+    }
+    showImage(testImg);
+    if(!setMax(testImg)){
+        printf("Set max failed\n");
+        return false;
+    }
+    showImage(testImg);
+    freeGImg(&testImg);
+    if(testImg){
+        printf("Free image failed\n");
+        return false;
+    }
+    return true;
 }
 
 bool testCbuffer(void){
