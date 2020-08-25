@@ -10,6 +10,7 @@ bool testStackNew(void);
 bool testQueue(void);
 bool testCbuffer(void);
 bool test2Dimage(void);
+void testInterrupt(void);
 
 int main(void){
     // if(!testLinkedListDP()){
@@ -32,13 +33,40 @@ int main(void){
     // }else{
     //     printf("Test return true\n");
     // }
-    if(!test2Dimage()){
-        printf("Test return false\n");
-    }else{
-        printf("Test return true\n");
-    }
+    // if(!test2Dimage()){
+    //     printf("Test return false\n");
+    // }else{
+    //     printf("Test return true\n");
+    // }
+    // return 0;
+    testInterrupt();
     return 0;
 }
+void ISR0(void){
+    printf("ISR0 is called\n");
+}
+
+void ISR1(void){
+    printf("ISR1 is called\n");
+}
+
+void ISR2(void){
+    printf("ISR2 is called\n");
+}
+
+void testInterrupt(void){
+    Register(0, ISR0);
+    Register(1, ISR1);
+    Register(2, ISR2);
+
+    INTERRUPT_CODE = 0;
+    InterruptHandler();
+    INTERRUPT_CODE = 1;
+    InterruptHandler();
+    INTERRUPT_CODE = 2;
+    InterruptHandler();
+}
+
 
 bool test2Dimage(void){
     unsigned height = 6;

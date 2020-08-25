@@ -134,4 +134,13 @@ bool setMax(gImg* const image);
 void freeGImg(gImg** gIP);
 /*** end of 2-D image ***/
 
+/*** pointer to functions ***/
+#define MAX_INTERRUPTS 8
+typedef void (*FuncPtr)(void);
+FuncPtr FuncPtrArray[MAX_INTERRUPTS];
+unsigned char INTERRUPT_CODE;
+void Register(int interrupt_num, FuncPtr funcP);
+bool InterruptHandler(void);
+/*** end of pointer to functions ***/
+
 #endif
