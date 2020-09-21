@@ -23,8 +23,8 @@ OBJS         =  $(addprefix $(OBJ_DIR), $(_OBJS))
 
 INCLUDES     =  $(wildcard $(INCLUDE_DIR)*.h)
 
-CFLAGS       =  -Wall -ggdb -I $(INCLUDE_DIR)
-OFLAGS       =  
+CFLAGS       =  -Wall -ggdb -I $(INCLUDE_DIR) 
+OFLAGS       =  -pthread 
 
 $(BIN): $(BIN_DIR) $(OBJS) 
 	$(CC) $(OFLAGS) $(OBJS) -o $(BIN)

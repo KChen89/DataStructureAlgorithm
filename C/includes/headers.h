@@ -1,6 +1,6 @@
 
-#ifndef _UTIL_H_
-#define _UTIL_H_
+#ifndef __UTIL_H__
+#define __UTIL_H__
 
 typedef enum{
     false = 0, 
@@ -143,4 +143,9 @@ void Register(int interrupt_num, FuncPtr funcP);
 bool InterruptHandler(void);
 /*** end of pointer to functions ***/
 
-#endif
+/** POSIX thread **/
+void *performWork(void* args);
+void testThread(void);
+/** end of POSIX thread **/
+
+#endif /* __UTIL_H__ */

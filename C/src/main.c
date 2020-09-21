@@ -2,7 +2,10 @@
 #include<stdlib.h>
 #include "headers.h"
 #define RANGE 10
+#define SQUARE(x) (x*x)
 
+
+void test(void);
 bool testLinkedList(void);
 bool testLinkedListDP(void);
 bool testStack(void);
@@ -12,7 +15,9 @@ bool testCbuffer(void);
 bool test2Dimage(void);
 void testInterrupt(void);
 
+
 int main(void){
+    // test();
     // if(!testLinkedListDP()){
     //     printf("test failed\n");
     // }
@@ -39,9 +44,19 @@ int main(void){
     //     printf("Test return true\n");
     // }
     // return 0;
-    testInterrupt();
+    // testInterrupt();
+    testThread();
     return 0;
 }
+
+void test(void){
+    char ySqrt;
+    char y = 2;
+    // y = 2;
+    ySqrt = SQUARE(y++);
+    printf("ySqrt = %d\n", ySqrt);
+}
+
 void ISR0(void){
     printf("ISR0 is called\n");
 }
