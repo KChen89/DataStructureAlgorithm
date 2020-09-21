@@ -8,12 +8,15 @@
 #define MAX_THREADS 5
 
 void* performWork(void* args){
-    unsigned int index = *((int*) args);
-    unsigned int sleepTime = 1 + rand() % MAX_THREADS;
-    printf("Thread started ID: %d sleep time: %d\n", index, sleepTime);
-    sleep(sleepTime);
+    int index = *((int*) args);
+    
+    unsigned int* sleepTime;
+    sleepTime = malloc(sizeof(sleepTime));
+    *sleepTime = 1+ rand() % MAX_THREADS;
+    printf("Thread started ID: %d sleep time: %u\n", index, *sleepTime);
+    sleep(*sleepTime);
     printf("Thread ended ID: %d\n", index);
-    return NULL;
+    pthread_exit((void*) sleepTime);
 }
 
 void testThread(void){
@@ -30,11 +33,13 @@ void testThread(void){
     }
 
     printf("IN TEST: all threads are created\n");
+    unsigned int* sTime;
     for(i=0;i<MAX_THREADS;i++){
-        resultCode = pthread_join(threadArray[i], NULL);
+        resultCode = pthread_join(threadArray[i], (void**) &sTime);
         assert(!resultCode);
-        printf("IN TEST: Thread %d was ended\n", i);
+        printf("IN TEST: Thread %d was ended after sleep %u\n", i, *sTime);
     }
+    free(sTime);
     printf("TEST ended\n");
 }
 
