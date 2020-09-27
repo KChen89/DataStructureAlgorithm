@@ -6,6 +6,8 @@
 #include "headers.h"
 
 #define MAX_THREADS 5
+unsigned int counter;
+// pthread_mutex_t lock;
 
 void* performWork(void* args){
     int index = *((int*) args);
@@ -17,18 +19,19 @@ void* performWork(void* args){
     sleep(*sleepTime);
     printf("Thread ended ID: %d\n", index);
     pthread_exit((void*) sleepTime);
+    free(sleepTime);
 }
 
 void testThread(void){
     pthread_t threadArray[MAX_THREADS];
-    int threadArgs[MAX_THREADS];
     int i;
     int resultCode;
 
     for(i=0; i<MAX_THREADS; i++){
         printf("IN TEST: create thread %d\n", i);
-        threadArgs[i] = i;
-        resultCode = pthread_create(&threadArray[i], NULL, performWork, &threadArgs[i]);
+        // threadArgs[i] = i;
+        int arg = i;
+        resultCode = pthread_create(&threadArray[i], NULL, performWork, &arg);
         assert(!resultCode);
     }
 
@@ -39,7 +42,45 @@ void testThread(void){
         assert(!resultCode);
         printf("IN TEST: Thread %d was ended after sleep %u\n", i, *sTime);
     }
-    free(sTime);
+    // free(sTime);
     printf("TEST ended\n");
 }
 
+void* pTask(void* lockP){
+    // int index = *((int*) args);
+    // pthread_mutex_t lock = *((pthread_mutex_t*) args);
+    pthread_mutex_lock((pthread_mutex_t*) lockP);
+    // pthread_mutex_lock(&lock);
+    unsigned int* sleepTime;
+    sleepTime = malloc(sizeof(sleepTime));
+    *sleepTime = 1+rand() % MAX_THREADS;
+    counter++;
+    printf("Thread %d starts. Time cost: %d \n", counter, *sleepTime);
+    sleep(*sleepTime);
+    printf("Thread %d ends\n", counter);
+    pthread_mutex_unlock((pthread_mutex_t*) lockP);
+    // pthread_mutex_unlock(&lock);
+    pthread_exit((void*) sleepTime);
+    free(sleepTime);
+}
+
+void testMutex(void){
+    pthread_t taskList[2];
+    int ret;
+    int i;
+    pthread_mutex_t lock;
+    ret = pthread_mutex_init(&lock, NULL);
+    assert(!ret);
+
+    for(i=0; i<2; i++){
+        ret = pthread_create(&taskList[i], NULL, pTask, &lock);
+        assert(!ret);
+    }
+    unsigned int* sTime;
+    for(i=0;i<2;i++){
+        ret = pthread_join(taskList[i], (void**) &sTime);
+        assert(!ret);
+        printf("Thread %d returned %d \n", i, *sTime);
+    }
+    pthread_mutex_destroy(&lock);
+}

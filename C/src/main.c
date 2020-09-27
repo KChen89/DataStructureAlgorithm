@@ -45,7 +45,8 @@ int main(void){
     // }
     // return 0;
     // testInterrupt();
-    testThread();
+    // testThread();
+    testMutex();
     return 0;
 }
 

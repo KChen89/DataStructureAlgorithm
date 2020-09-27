@@ -146,6 +146,8 @@ bool InterruptHandler(void);
 /** POSIX thread **/
 void *performWork(void* args);
 void testThread(void);
+void *pTask(void* args);
+void testMutex(void);
 /** end of POSIX thread **/
 
 #endif /* __UTIL_H__ */
