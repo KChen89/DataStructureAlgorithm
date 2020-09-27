@@ -146,8 +146,10 @@ bool InterruptHandler(void);
 /** POSIX thread **/
 void *performWork(void* args);
 void testThread(void);
-void *pTask(void* args);
+void *pTask(void* lockP);
 void testMutex(void);
+void* sTask(void* semaphore);
+void testSemaphore(void);
 /** end of POSIX thread **/
 
 #endif /* __UTIL_H__ */

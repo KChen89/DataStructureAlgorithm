@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<assert.h>
 #include<pthread.h>
+#include<semaphore.h>
 #include<unistd.h>
 #include "headers.h"
 
@@ -53,7 +54,7 @@ void* pTask(void* lockP){
     // pthread_mutex_lock(&lock);
     unsigned int* sleepTime;
     sleepTime = malloc(sizeof(sleepTime));
-    *sleepTime = 1+rand() % MAX_THREADS;
+    *sleepTime = 1 + rand() % MAX_THREADS;
     counter++;
     printf("Thread %d starts. Time cost: %d \n", counter, *sleepTime);
     sleep(*sleepTime);
@@ -80,7 +81,45 @@ void testMutex(void){
     for(i=0;i<2;i++){
         ret = pthread_join(taskList[i], (void**) &sTime);
         assert(!ret);
-        printf("Thread %d returned %d \n", i, *sTime);
+        printf("Thread %d returned %d \n", i+1, *sTime);
     }
     pthread_mutex_destroy(&lock);
+}
+
+
+void* sTask(void* semaphore){
+    int ret;
+    ret = sem_wait(semaphore);
+    assert(!ret);
+    unsigned int* sleepTime;
+    sleepTime = malloc(sizeof(sleepTime));
+    *sleepTime = 1 + rand() % MAX_THREADS;
+    counter++;
+    printf("Thread %d starts. Time cost %d \n", counter, *sleepTime);
+    sleep(*sleepTime);
+    printf("Thread %d ends \n", counter);
+    ret = sem_post(semaphore);
+    assert(!ret);
+    pthread_exit((void*) sleepTime);
+    free(sleepTime);
+}
+
+void testSemaphore(void){
+    pthread_t taskList[2];
+    int ret;
+    int i;
+    sem_t semaphore;
+    ret = sem_init(&semaphore, 0, 1);
+    assert(!ret);
+    for(i=0;i<2;i++){
+        ret = pthread_create(&taskList[i], NULL, sTask, &semaphore);
+        assert(!ret);
+    }
+    unsigned int* sTime;
+    for(i=0;i<2;i++){
+        ret = pthread_join(taskList[i], (void**) &sTime);
+        assert(!ret);
+        printf("Thread %d returned %d\n", i+1, *sTime);
+    }
+    sem_destroy(&semaphore);
 }

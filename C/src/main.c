@@ -46,7 +46,8 @@ int main(void){
     // return 0;
     // testInterrupt();
     // testThread();
-    testMutex();
+    // testMutex();
+    testSemaphore();
     return 0;
 }
 
