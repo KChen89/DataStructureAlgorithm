@@ -47,7 +47,10 @@ int main(void){
     // testInterrupt();
     // testThread();
     // testMutex();
-    testSemaphore();
+    // testSemaphore();
+    // testSynThread();
+    // test_PC_mutex();
+    test_PC_semaphore();
     return 0;
 }
 

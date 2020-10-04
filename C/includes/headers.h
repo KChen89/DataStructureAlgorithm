@@ -152,4 +152,40 @@ void* sTask(void* semaphore);
 void testSemaphore(void);
 /** end of POSIX thread **/
 
+/** SynThread **/
+void* counter0(void* args);
+void* counter1(void* args);
+void testSynThread(void);
+/** end of SynThread **/
+
+
+/** producer consumer **/
+
+// the buffer works like a stack for
+// the sake of simplicity, if needed
+// we may implement a queue
+#define BUF_SIZE 5
+typedef struct {
+    int buf[BUF_SIZE]; // the buffer
+    int len; // number of items in the buffer
+    pthread_mutex_t mutex; // needed to add/remove data from the buffer
+    pthread_cond_t can_produce; // signaled when items are removed
+    pthread_cond_t can_consume; // signaled when items are added
+} buffer_t;
+
+void* producer_mutex(void* arg);
+void* consumer_mutex(void* arg);
+void test_PC_mutex(void);
+#include <semaphore.h>
+typedef struct {
+    int buf[BUF_SIZE];
+    int len;
+    sem_t sem_lock;
+    sem_t can_consume;
+    sem_t can_produce;
+} buffer_s;
+void* consumer_semaphore(void* args);
+void* producer_semaphore(void* args);
+void test_PC_semaphore(void);
+/** end of producer consumer **/
 #endif /* __UTIL_H__ */

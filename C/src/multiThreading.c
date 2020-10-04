@@ -4,6 +4,8 @@
 #include<pthread.h>
 #include<semaphore.h>
 #include<unistd.h>
+#include<string.h>
+#include<errno.h>
 #include "headers.h"
 
 #define MAX_THREADS 5

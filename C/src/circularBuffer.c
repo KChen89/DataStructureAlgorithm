@@ -64,6 +64,9 @@ bool popCBuf(cBuf* cb, int* value){
     *value = cb->buf[cb->tail];
     cb->buf[cb->tail] = 0;
     cb->tail++;
+    if(cb->tail==cb->capacity){
+        cb->tail -= cb->capacity;
+    }
     cb->size--;
     return true;
 }
